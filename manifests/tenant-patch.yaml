@@ -1,0 +1,46 @@
+# Patch node affinity 
+apiVersion: minio.min.io/v2
+kind: Tenant
+metadata:
+  creationTimestamp: null
+  name: minio-sosc22-users
+  namespace: minio
+scheduler:
+  name: ""
+spec:
+  pools:
+  - affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+              - 192.168.1.22
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: v1.min.io/tenant
+              operator: In
+              values:
+              - minio-sosc22-users
+          topologyKey: kubernetes.io/hostname
+    name: ss-0
+    resources: {}
+    servers: 1
+    volumeClaimTemplate:
+      apiVersion: v1
+      kind: persistentvolumeclaims
+      metadata:
+        creationTimestamp: null
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 250Gi
+        storageClassName: openebs-device
+      status: {}
+    volumesPerServer: 1

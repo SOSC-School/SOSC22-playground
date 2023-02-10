@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: List
+items:
+- apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    annotations:
+      cert-manager.io/cluster-issuer: lets-issuer 
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+      nginx.ingress.kubernetes.io/configuration-snippet: |
+        chunked_transfer_encoding off;
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/proxy-ssl-verify: "off"
+      nginx.ingress.kubernetes.io/rewrite-target: /
+      nginx.ingress.kubernetes.io/server-snippet: |
+        client_max_body_size 0;
+    name: ingress-minio
+    namespace: minio
+  spec:
+    rules:
+    - host: minio.131.154.96.42.myip.cloud.infn.it
+      http:
+        paths:
+        - backend:
+            service:
+              name: minio
+              port:
+                number: 443
+          path: /
+          pathType: Prefix
+    - host: console.131.154.96.42.myip.cloud.infn.it
+      http:
+        paths:
+        - backend:
+            service:
+              name: minio-sosc22-users-console
+              port:
+                number: 9443
+          path: /
+          pathType: Prefix
+    tls:
+    - hosts:
+      - minio.131.154.96.42.myip.cloud.infn.it
+      secretName: nginx-tls-good
+    - hosts:
+      - console.131.154.96.42.myip.cloud.infn.it
+      secretName: nginx-tls-console-good
+

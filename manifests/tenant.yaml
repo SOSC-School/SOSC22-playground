@@ -1,0 +1,111 @@
+apiVersion: minio.min.io/v2
+kind: Tenant
+metadata:
+  creationTimestamp: null
+  name: minio-sosc22-users
+  namespace: minio
+scheduler:
+  name: ""
+spec:
+  certConfig:
+    commonName: '*.minio-sosc22-users-hl.minio.svc.cluster.local'
+    dnsNames:
+    - minio-sosc22-users-ss-0-0.minio-sosc22-users-hl.minio.svc.cluster.local
+    organizationName:
+    - system:nodes
+  configuration:
+    name: minio-sosc22-users-env-configuration
+  image: quay.io/minio/minio
+  imagePullPolicy: IfNotPresent
+  imagePullSecret: {}
+  log:
+    audit:
+      diskCapacityGB: 5
+    db:
+      image: library/postgres:13
+      initimage: busybox:1.33.1
+      resources: {}
+      volumeClaimTemplate:
+        metadata:
+          creationTimestamp: null
+          name: minio-sosc22-users-log
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: "5368709120"
+          storageClassName: openebs-hostpath
+        status: {}
+    image: minio/operator:v4.5.3
+    resources: {}
+  mountPath: /export
+  podManagementPolicy: Parallel
+  pools:
+  - affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: v1.min.io/tenant
+              operator: In
+              values:
+              - minio-sosc22-users
+          topologyKey: kubernetes.io/hostname
+    name: ss-0
+    resources: {}
+    servers: 1
+    volumeClaimTemplate:
+      apiVersion: v1
+      kind: persistentvolumeclaims
+      metadata:
+        creationTimestamp: null
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 250Gi
+        storageClassName: openebs-device
+      status: {}
+    volumesPerServer: 1
+  prometheus:
+    diskCapacityGB: 5
+    image: quay.io/prometheus/prometheus:latest
+    initimage: busybox:1.33.1
+    resources: {}
+    sidecarimage: alpine
+    storageClassName: openebs-hostpath
+  requestAutoCert: true
+  users:
+  - name: minio-sosc22-users-user-1
+status:
+  availableReplicas: 0
+  certificates: {}
+  currentState: ""
+  pools: null
+  revision: 0
+  syncVersion: ""
+  usage: {}
+
+---
+apiVersion: v1
+data:
+  config.env: ZXhwb3J0IE1JTklPX1JPT1RfVVNFUj0iWUYxSzFZMFhEV0Q3RUFUNlROVDAiCmV4cG9ydCBNSU5JT19ST09UX1BBU1NXT1JEPSJTaWJYOWFCbkYzOEdBeGkzSm9TQzNUZHBBWXVTQW5sR3BDc1NMNWhaIgo=
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: minio-sosc22-users-env-configuration
+  namespace: minio
+
+---
+apiVersion: v1
+data:
+  CONSOLE_ACCESS_KEY: NjdLMFVBTkNMOVc0VU9UQU1ITTI=
+  CONSOLE_SECRET_KEY: cGpXTVRUWGFhYnV3OWNHcDRZRGlHZXJsQTQ4M3lUZEd5eVFQVGVjWQ==
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: minio-sosc22-users-user-1
+  namespace: minio
+
