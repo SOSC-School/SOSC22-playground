@@ -2,7 +2,7 @@ import requests
 
 api_url = 'https://sosc.131.154.96.42.myip.cloud.infn.it/hub/api'
 
-token = 'd84bf7de28b245b7afe46e15cd8d4df2'
+token = ''
 
 import pandas as pd
 

@@ -1,13 +1,12 @@
 resources:
- #- argo-role.yaml
- #- cert_issuer.yaml
- #- tenant.yaml
- #- openebs-operator.yaml
- #- ingress_minio_tenant.yaml
- #- dask-operator.yaml
+ - cert_issuer.yaml
+ - tenant.yaml
+ - openebs-operator.yaml
+ - ingress_minio_tenant.yaml
+ - dask-operator.yaml
  - jhub_deployment.yaml
-#patchesStrategicMerge:
-# - tenant-patch.yaml
+patchesStrategicMerge:
+ - tenant-patch.yaml
 
 configMapGenerator:
 - name: jhub-config
