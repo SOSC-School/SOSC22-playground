@@ -17,6 +17,12 @@ rules:
   - delete
   - create
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jupyterhub
+  namespace: default
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -60,7 +66,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: dask-cluster-role-binding-dciangot
+  name: dask-cluster-role-binding-admin
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -68,4 +74,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: default # adjust name based on the service account you created
-    namespace: user-dciangot
+    namespace: user-admin

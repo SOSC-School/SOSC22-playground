@@ -1,3 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: minio 
+---
 apiVersion: minio.min.io/v2
 kind: Tenant
 metadata:
@@ -15,6 +20,7 @@ spec:
     - system:nodes
   configuration:
     name: minio-sosc22-users-env-configuration
+  exposeServices: {}
   image: quay.io/minio/minio
   imagePullPolicy: IfNotPresent
   imagePullSecret: {}
@@ -37,7 +43,7 @@ spec:
               storage: "5368709120"
           storageClassName: openebs-hostpath
         status: {}
-    image: minio/operator:v4.5.3
+    image: minio/operator:v4.5.8
     resources: {}
   mountPath: /export
   podManagementPolicy: Parallel
@@ -65,8 +71,8 @@ spec:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 250Gi
-        storageClassName: openebs-device
+            storage: 50Gi
+        storageClassName: openebs-hostpath
       status: {}
     volumesPerServer: 1
   prometheus:
@@ -91,7 +97,7 @@ status:
 ---
 apiVersion: v1
 data:
-  config.env: ZXhwb3J0IE1JTklPX1JPT1RfVVNFUj0iWUYxSzFZMFhEV0Q3RUFUNlROVDAiCmV4cG9ydCBNSU5JT19ST09UX1BBU1NXT1JEPSJTaWJYOWFCbkYzOEdBeGkzSm9TQzNUZHBBWXVTQW5sR3BDc1NMNWhaIgo=
+  config.env: ZXhwb3J0IE1JTklPX1JPT1RfVVNFUj0iVTVIQ0wzU1RXMzNHTjk1NUxZN0EiCmV4cG9ydCBNSU5JT19ST09UX1BBU1NXT1JEPSJJWGtUc0NIbjczb2R3Nld2cHM2RFkxdzJHa1Q0SlpsVllWWmxaNDRtIgo=
 kind: Secret
 metadata:
   creationTimestamp: null
@@ -101,8 +107,8 @@ metadata:
 ---
 apiVersion: v1
 data:
-  CONSOLE_ACCESS_KEY: NjdLMFVBTkNMOVc0VU9UQU1ITTI=
-  CONSOLE_SECRET_KEY: cGpXTVRUWGFhYnV3OWNHcDRZRGlHZXJsQTQ4M3lUZEd5eVFQVGVjWQ==
+  CONSOLE_ACCESS_KEY: TjkwQjRWQTg3TDlTQlpNMFVFVVA=
+  CONSOLE_SECRET_KEY: aXloQmJaRWh2UGxHWFlhcXNNVkNJSkJXTGlFYUVLRkpOUWxhUXBySQ==
 kind: Secret
 metadata:
   creationTimestamp: null

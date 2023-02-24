@@ -4,9 +4,9 @@ resources:
  - openebs-operator.yaml
  - ingress_minio_tenant.yaml
  - dask-operator.yaml
+ - jhub-cluster_role.yaml
  - jhub_deployment.yaml
-patchesStrategicMerge:
- - tenant-patch.yaml
+ - jhub-ingress.yaml
 
 configMapGenerator:
 - name: jhub-config

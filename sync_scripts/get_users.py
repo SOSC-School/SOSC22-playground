@@ -1,10 +1,11 @@
 import requests
-
-api_url = 'https://sosc.131.154.96.42.myip.cloud.infn.it/hub/api'
-
-token = ''
-
 import pandas as pd
+import os
+
+api_url = 'https://jhub.example.com/hub/api'
+
+token = os.environ.get("JHUB_TOKEN")
+
 
 user_list = pd.read_csv("user_list.csv", sep="\t", header=None)
 
@@ -12,7 +13,7 @@ col = user_list.columns[0]
 
 for user in user_list[col]:
     print(str(user))
-    api_url = f'https://sosc.131.154.96.42.myip.cloud.infn.it/hub/authorize/{user[0]}'
+    api_url = f'https://jhub.example.com/hub/authorize/{user[0]}'
 
     r = requests.post(api_url,
         headers={
@@ -24,11 +25,11 @@ for user in user_list[col]:
 
 
 
-    api_url = f'https://sosc.131.154.96.42.myip.cloud.infn.it/hub/api/users/{user}'
+    api_url = f'https://jhub.example.com/hub/api/users/{user}'
 
     users_req = {
         "usernames": [user],
-        "admin" : False if user not in ['dciangot', 'dspiga', 'test'] else True
+        "admin" : False if user not in ['admin'] else True
     }
 
     print(users_req)
@@ -46,7 +47,7 @@ for user in user_list[col]:
     print(r.status_code)
     print(r.reason)
 
-    api_url = f'https://sosc.131.154.96.42.myip.cloud.infn.it/hub/api/users/{user}/servers/'
+    api_url = f'https://jhub.example.com/hub/api/users/{user}/servers/'
 
     r = requests.post(api_url,
         headers={

@@ -5,7 +5,7 @@ import os, nativeauthenticator
 import kubespawner
 import socket
 c.JupyterHub.template_paths = [f"{os.path.dirname(nativeauthenticator.__file__)}/templates/"]
-c.Authenticator.admin_users = {'dciangot'}
+c.Authenticator.admin_users = {'admin'}
 c.JupyterHub.spawner_class = 'kubespawner.KubeSpawner'
 c.KubeSpawner.image = 'ghcr.io/sosc-school/sosc22-jupyterlab:v0.0.1-pre4'
 c.KubeSpawner.cpu_guarantee = 2.0

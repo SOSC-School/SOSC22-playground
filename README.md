@@ -19,4 +19,7 @@ The deployment will include:
 
 ## Create Object Storage tenant
 
+
+N90B4VA87L9SBZM0UEUP
+iyhBbZEhvPlGXYaqsMVCIJBWLiEaEKFJNQlaQprI
 ## How to use user syncronization script

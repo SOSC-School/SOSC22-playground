@@ -4,13 +4,13 @@ items:
   kind: Ingress
   metadata:
     annotations:
-      cert-manager.io/cluster-issuer: lets-issuer 
+      cert-manager.io/cluster-issuer: selfsigned-issuer
       kubernetes.io/ingress.class: nginx
     name: ingress-sosc
     namespace: default
   spec:
     rules:
-    - host: sosc.131.154.96.42.myip.cloud.infn.it
+    - host: jhub.example.com
       http:
         paths:
         - backend:
@@ -22,7 +22,7 @@ items:
           pathType: Prefix
     tls:
     - hosts:
-      - sosc.131.154.96.42.myip.cloud.infn.it
+      - jhub.example.com
       secretName: nginx-tls-sosc
 kind: List
 

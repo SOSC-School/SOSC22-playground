@@ -5,7 +5,7 @@ items:
   kind: Ingress
   metadata:
     annotations:
-      cert-manager.io/cluster-issuer: lets-issuer 
+      cert-manager.io/cluster-issuer: selfsigned-issuer 
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/backend-protocol: HTTPS
       nginx.ingress.kubernetes.io/configuration-snippet: |
@@ -19,7 +19,7 @@ items:
     namespace: minio
   spec:
     rules:
-    - host: minio.131.154.96.42.myip.cloud.infn.it
+    - host: minio.example.com 
       http:
         paths:
         - backend:
@@ -29,7 +29,7 @@ items:
                 number: 443
           path: /
           pathType: Prefix
-    - host: console.131.154.96.42.myip.cloud.infn.it
+    - host: console.example.com
       http:
         paths:
         - backend:
@@ -41,9 +41,9 @@ items:
           pathType: Prefix
     tls:
     - hosts:
-      - minio.131.154.96.42.myip.cloud.infn.it
+      - minio.example.com
       secretName: nginx-tls-good
     - hosts:
-      - console.131.154.96.42.myip.cloud.infn.it
+      - console.example.com
       secretName: nginx-tls-console-good
 
