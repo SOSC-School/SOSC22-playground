@@ -103,3 +103,9 @@ mbarbetti	False	Yes
 ```
 
 Then move in `sync_scripts` folders and run: `JHUB_TOKEN=<JHUB_TOKEN> python3 get_users.py` where you can create a valid JHUB_TOKEN at `https://jhub.example.com/hub/token`
+
+## Docker images and examples
+
+In `./docker` you can find the Dockerfile for the Jupyter and Dask images.
+
+Also in `./example` you can find an example notebook to verify that everything is working.
