@@ -1,2 +1,4 @@
 ./kube_config_rke.yaml
 ./rke.rkestate
+kube_config_rke.yaml
+rke.rkestate
