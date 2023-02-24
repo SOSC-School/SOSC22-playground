@@ -23,11 +23,11 @@ ingress:
   provider: none
 
 nodes:
-    - address: 10.25.128.29
-      internal_address: 10.25.128.29
-      user: root
+    - address: <YOUR PUBLIC IP HERE> 
+      internal_address: <YOUR PRIVATE IP HERE>
+      user: <SSH USER TO LOGIN WITH>
       role:
         - controlplane
         - etcd
         - worker
-      ssh_key_path: /Users/dciangot/.ssh/id_ed25519
+      ssh_key_path: <PATH TO THE SSH KEY TO USE FOR LOGIN>
